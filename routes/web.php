@@ -19,8 +19,20 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->get('/key', function() {
+    return \Illuminate\Support\Str::random(32);
+});
+
 $router->group(['prefix' => 'api'], function () use ($router) {
 
+    $router->group(['prefix' => 'users'], function () use ($router) {
+        $router->get('/', 'UsersController@index');
+        $router->get('/{id}', 'UsersController@show');        
+        $router->post('/', 'UsersController@store');
+        $router->put('/{id}', 'UsersController@update');
+        $router->delete('/{id}', 'UsersController@destroy');
+    });
+    
     $router->group(['prefix' => 'users-types'], function () use ($router) {
         $router->get('/', 'UsersTypesController@index');
         $router->get('/{id}', 'UsersTypesController@show');        

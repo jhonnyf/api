@@ -23,7 +23,7 @@ class CreateUsers extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('password');
-            $table->string('document', 16)->comment('CPF OU CNPJ');
+            $table->string('document', 16)->unique()->comment('CPF OU CNPJ');
             $table->string('phone', 16)->nullable();
             $table->string('phone_extension', 10)->nullable();
             $table->string('cellphone', 16)->nullable();
