@@ -14,7 +14,7 @@ class UsersTypesSeeder extends Seeder
     {
         DB::table('users_types')->insert([
             'active'     => 1,
-            'user_type'  => 'Administrador',
+            'user_type'  => 'Root',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
