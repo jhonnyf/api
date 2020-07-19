@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -91,6 +92,12 @@ abstract class Controller extends BaseController
         }
 
         return $this->buildReturn($error, $result, $message);
+    }
+
+    public function tableFields()
+    {
+        $Model = new $this->Module;
+        return $this->buildReturn(false, DB::getSchemaBuilder()->getColumnListing($Model->getTable()));
     }
 
     /**

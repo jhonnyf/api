@@ -26,18 +26,19 @@ $router->get('/key', function() {
 $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->group(['prefix' => 'users'], function () use ($router) {
-        $router->get('/', 'UsersController@index');
-        $router->get('/{id}', 'UsersController@show');        
-        $router->post('/', 'UsersController@store');
-        $router->put('/{id}', 'UsersController@update');
-        $router->delete('/{id}', 'UsersController@destroy');
+        $router->get('', 'UsersController@index');
+        $router->get('{id}', 'UsersController@show');        
+        $router->post('', 'UsersController@store');
+        $router->put('{id}', 'UsersController@update');
+        $router->delete('{id}', 'UsersController@destroy');
     });
     
     $router->group(['prefix' => 'users-types'], function () use ($router) {
-        $router->get('/', 'UsersTypesController@index');
-        $router->get('/{id}', 'UsersTypesController@show');        
-        $router->post('/', 'UsersTypesController@store');
-        $router->put('/{id}', 'UsersTypesController@update');
-        $router->delete('/{id}', 'UsersTypesController@destroy');
+        $router->get('table-fields', 'UsersTypesController@tableFields');
+        $router->get('', 'UsersTypesController@index');
+        $router->get('{id}', 'UsersTypesController@show');        
+        $router->post('', 'UsersTypesController@store');
+        $router->put('{id}', 'UsersTypesController@update');
+        $router->delete('{id}', 'UsersTypesController@destroy');
     });
 });

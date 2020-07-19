@@ -8,5 +8,4 @@ class UsersTypes extends Model
 {
     protected $primaryKey = 'id';
     protected $fillable   = ['user_type'];
-
 }
