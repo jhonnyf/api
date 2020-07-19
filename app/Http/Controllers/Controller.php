@@ -97,7 +97,19 @@ abstract class Controller extends BaseController
     public function tableFields()
     {
         $Model = new $this->Module;
-        return $this->buildReturn(false, DB::getSchemaBuilder()->getColumnListing($Model->getTable()));
+        $table = $Model->getTable();
+
+        $columns = DB::getDoctrineSchemaManager()->listTableColumns($table);
+
+        foreach ($columns as $key => $column) {
+            $return[$key]['name']     = $column->getName();
+            $return[$key]['not_null'] = $column->getNotnull();
+            $return[$key]['default']  = $column->getDefault();
+            $return[$key]['type']     = DB::getSchemaBuilder()->getColumnType($table, $column->getName());
+            $return[$key]['length']   = $column->getLength();
+        }
+
+        return $this->buildReturn(false, $return);
     }
 
     /**
