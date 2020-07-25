@@ -21,7 +21,7 @@ class DbMetaData
             $metadata[$key]['name']       = $field->Field;
             $metadata[$key]['type']       = $position_int === false ? $field->Type : substr($field->Type, 0, $position_int);
             $metadata[$key]['max_length'] = trim($max_length);
-            $metadata[$key]['key']        = $field->Key;
+            $metadata[$key]['key']        = strtolower($field->Key);
         }
 
         return $metadata;
