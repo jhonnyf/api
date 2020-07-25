@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DbMetaData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -97,17 +98,10 @@ abstract class Controller extends BaseController
     public function tableFields()
     {
         $Model = new $this->Module;
-        $table = $Model->getTable();
 
-        $columns = DB::getDoctrineSchemaManager()->listTableColumns($table);
+        $fields = DB::select('DESCRIBE ' . $Model->getTable());
 
-        foreach ($columns as $key => $column) {
-            $return[$key]['name']     = $column->getName();
-            $return[$key]['not_null'] = $column->getNotnull();
-            $return[$key]['default']  = $column->getDefault();
-            $return[$key]['type']     = DB::getSchemaBuilder()->getColumnType($table, $column->getName());
-            $return[$key]['length']   = $column->getLength();
-        }
+        $return = DbMetaData::fields($fields);
 
         return $this->buildReturn(false, $return);
     }
